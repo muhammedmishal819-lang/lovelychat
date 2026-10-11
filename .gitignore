@@ -1,0 +1,7 @@
+# This file tells git which files to IGNORE (never upload them).
+# node_modules are huge library folders - Render rebuilds them itself,
+# so uploading them would be slow and pointless.
+node_modules/
+client/dist/
+*.log
+.DS_Store

@@ -1,0 +1,9 @@
+# This file tells Render exactly how to run LovelyChat.
+# You don't need to understand it deeply - Render reads it automatically.
+services:
+  - type: web
+    name: lovelychat
+    runtime: node
+    plan: free
+    buildCommand: npm run build
+    startCommand: npm start
