@@ -145,7 +145,7 @@ const EMOJIS = ["\uD83D\uDE00","\uD83D\uDE01","\uD83D\uDE02","\uD83E\uDD23","\uD
       <div className="app">
         <div className="join-wrap">
           <div className="join-card">
-            <div className="join-logo">\uD83D\uDC95</div>
+            <div className="join-logo">{"\uD83D\uDC95"}</div>
             <h1>LovelyChat</h1>
             <p className="join-sub">Private real-time chat for lovers and friends</p>
             <label>Your Name</label>
@@ -166,9 +166,9 @@ const EMOJIS = ["\uD83D\uDE00","\uD83D\uDE01","\uD83D\uDE02","\uD83E\uDD23","\uD
           <div className="avatar">{currentRoom.charAt(0).toUpperCase()}</div>
           <div className="room-info">
             <b>{currentRoom}</b>
-            <span>\uD83D\uDFE2 {onlineUsers.length} online</span>
+            <span>{"\uD83D\uDFE2"} {onlineUsers.length} online</span>
           </div>
-          <button className="icon-btn" onClick={() => setShowOnline((s) => !s)} title="Who is online">\uD83D\uDC65</button>
+          <button className="icon-btn" onClick={() => setShowOnline((s) => !s)} title="Who is online">{"\uD83D\uDC65"}</button>
           <button className="icon-btn" onClick={() => setTheme((t) => (t === "dark" ? "light" : "dark"))} title="Toggle theme">{theme === "dark" ? "\uD83C\uDF05" : "\uD83C\uDF19"}</button>
           <button className="icon-btn" onClick={() => setSoundOn((s) => !s)} title="Toggle sound">{soundOn ? "\uD83D\uDD14" : "\uD83D\uDD15"}</button>
           <button className="leave-btn" onClick={handleLeave}>Leave</button>
@@ -179,7 +179,7 @@ const EMOJIS = ["\uD83D\uDE00","\uD83D\uDE01","\uD83D\uDE02","\uD83E\uDD23","\uD
             <div className="online-list">
               {onlineUsers.length === 0 && <span className="muted">Nobody else here yet - share the room code!</span>}
               {onlineUsers.map((u) => (
-                <span key={u} className="online-chip">\uD83D\uDFE2 {u}</span>
+                <span key={u} className="online-chip">{"\uD83D\uDFE2"} {u}</span>
               ))}
             </div>
           </div>
@@ -216,12 +216,12 @@ const EMOJIS = ["\uD83D\uDE00","\uD83D\uDE01","\uD83D\uDE02","\uD83E\uDD23","\uD
           </div>
         )}
         <div className="input-area">
-          <button className="icon-btn" onClick={() => setShowEmoji((s) => !s)} title="Emoji">\uD83D\uDE00</button>
+          <button className="icon-btn" onClick={() => setShowEmoji((s) => !s)} title="Emoji">{"\uD83D\uDE00"}</button>
           <input value={text} onChange={(e) => handleTyping(e.target.value)} onKeyDown={(e) => e.key === "Enter" && send()} placeholder="Type a lovely message..." maxLength={500} />
           <button className={`icon-btn mic ${recording ? "rec" : ""}`} onClick={toggleMic} title="Voice note">{recording ? `${recSecs}s \u23F9` : "\uD83C\uDFA4"}</button>
-          <button className="send-btn" onClick={send}>\u27A4</button>
+          <button className="send-btn" onClick={send}>{"\u27A4"}</button>
         </div>
-        {recording && <div className="rec-bar">\uD83D\uDD34 Recording voice note... {recSecs}s - tap mic to send</div>}
+        {recording && <div className="rec-bar">{"\uD83D\uDD34"} Recording voice note... {recSecs}s - tap mic to send</div>}
       </div>
     </div>
   );
