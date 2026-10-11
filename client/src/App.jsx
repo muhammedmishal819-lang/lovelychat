@@ -5,7 +5,7 @@ const SERVER_URL = import.meta.env.DEV ? `http://${window.location.hostname}:500
 const socket = io(SERVER_URL);
 function now() { return new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }); }
 function uid() { return Date.now().toString(36) + Math.random().toString(36).slice(2, 8); }
-const EMOJIS = ["??","??","??","??","??","??","??","??","??","??","??","??","??","??","??","??","??","??","??","??","??","??","??","??","?","??","??","??","??","??","??","??","??","??","??","??","?","??","??","??"]; function App() {
+const EMOJIS = ["\uD83D\uDE00","\uD83D\uDE01","\uD83D\uDE02","\uD83E\uDD23","\uD83D\uDE0A","\uD83D\uDE0D","\uD83D\uDE18","\uD83E\uDD70","\uD83D\uDE0E","\uD83E\uDD14","\uD83D\uDE05","\uD83D\uDE22","\uD83D\uDE2D","\uD83D\uDE21","\uD83D\uDC4D","\uD83D\uDC4E","\uD83D\uDE4F","\uD83D\uDC4F","\uD83D\uDD25","\uD83C\uDF89","\u2764","\uD83D\uDC95","\uD83D\uDC96","\uD83D\uDC94","\u2728","\uD83C\uDF39","\uD83D\uDC8B","\uD83E\uDD7A","\uD83D\uDE34","\uD83E\uDD17","\uD83D\uDCAF","\uD83D\uDC40","\uD83D\uDE4C","\uD83E\uDD1D","\uD83D\uDCAA","\uD83C\uDF55","\u2615","\uD83C\uDF19","\u2600","\uD83C\uDFB5"]; function App() {
   const [joined, setJoined] = useState(false);
   const [username, setUsername] = useState("");
   const [roomInput, setRoomInput] = useState("");
@@ -145,7 +145,7 @@ const EMOJIS = ["??","??","??","??","??","??","??","??","??","??","??","??","??"
       <div className="app">
         <div className="join-wrap">
           <div className="join-card">
-            <div className="join-logo">??</div>
+            <div className="join-logo">\uD83D\uDC95</div>
             <h1>LovelyChat</h1>
             <p className="join-sub">Private real-time chat for lovers and friends</p>
             <label>Your Name</label>
@@ -166,11 +166,11 @@ const EMOJIS = ["??","??","??","??","??","??","??","??","??","??","??","??","??"
           <div className="avatar">{currentRoom.charAt(0).toUpperCase()}</div>
           <div className="room-info">
             <b>{currentRoom}</b>
-            <span>?? {onlineUsers.length} online</span>
+            <span>\uD83D\uDFE2 {onlineUsers.length} online</span>
           </div>
-          <button className="icon-btn" onClick={() => setShowOnline((s) => !s)} title="Who is online">??</button>
-          <button className="icon-btn" onClick={() => setTheme((t) => (t === "dark" ? "light" : "dark"))} title="Toggle theme">{theme === "dark" ? "??" : "??"}</button>
-          <button className="icon-btn" onClick={() => setSoundOn((s) => !s)} title="Toggle sound">{soundOn ? "??" : "??"}</button>
+          <button className="icon-btn" onClick={() => setShowOnline((s) => !s)} title="Who is online">\uD83D\uDC65</button>
+          <button className="icon-btn" onClick={() => setTheme((t) => (t === "dark" ? "light" : "dark"))} title="Toggle theme">{theme === "dark" ? "\uD83C\uDF05" : "\uD83C\uDF19"}</button>
+          <button className="icon-btn" onClick={() => setSoundOn((s) => !s)} title="Toggle sound">{soundOn ? "\uD83D\uDD14" : "\uD83D\uDD15"}</button>
           <button className="leave-btn" onClick={handleLeave}>Leave</button>
         </div>
         {showOnline && (
@@ -179,7 +179,7 @@ const EMOJIS = ["??","??","??","??","??","??","??","??","??","??","??","??","??"
             <div className="online-list">
               {onlineUsers.length === 0 && <span className="muted">Nobody else here yet - share the room code!</span>}
               {onlineUsers.map((u) => (
-                <span key={u} className="online-chip">?? {u}</span>
+                <span key={u} className="online-chip">\uD83D\uDFE2 {u}</span>
               ))}
             </div>
           </div>
@@ -196,7 +196,7 @@ const EMOJIS = ["??","??","??","??","??","??","??","??","??","??","??","??","??"
                 ) : (
                   <div className="bubble">{m.text}</div>
                 )}
-                <span className="time">{m.time}{m.me && (m.seen ? <span className="ticks seen"> ??</span> : <span className="ticks"> ?</span>)}</span>
+                <span className="time">{m.time}{m.me && (m.seen ? <span className="ticks seen"> \u2713\u2713</span> : <span className="ticks"> \u2713</span>)}</span>
               </div>
             )
           )}
@@ -216,12 +216,12 @@ const EMOJIS = ["??","??","??","??","??","??","??","??","??","??","??","??","??"
           </div>
         )}
         <div className="input-area">
-          <button className="icon-btn" onClick={() => setShowEmoji((s) => !s)} title="Emoji">??</button>
+          <button className="icon-btn" onClick={() => setShowEmoji((s) => !s)} title="Emoji">\uD83D\uDE00</button>
           <input value={text} onChange={(e) => handleTyping(e.target.value)} onKeyDown={(e) => e.key === "Enter" && send()} placeholder="Type a lovely message..." maxLength={500} />
-          <button className={`icon-btn mic ${recording ? "rec" : ""}`} onClick={toggleMic} title="Voice note">{recording ? `${recSecs}s ?` : "??"}</button>
-          <button className="send-btn" onClick={send}>?</button>
+          <button className={`icon-btn mic ${recording ? "rec" : ""}`} onClick={toggleMic} title="Voice note">{recording ? `${recSecs}s \u23F9` : "\uD83C\uDFA4"}</button>
+          <button className="send-btn" onClick={send}>\u27A4</button>
         </div>
-        {recording && <div className="rec-bar">?? Recording voice note... {recSecs}s - tap mic to send</div>}
+        {recording && <div className="rec-bar">\uD83D\uDD34 Recording voice note... {recSecs}s - tap mic to send</div>}
       </div>
     </div>
   );
