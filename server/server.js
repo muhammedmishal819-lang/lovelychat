@@ -19,13 +19,24 @@ if (fs.existsSync(clientDist)) {
 }
 
 const server = http.createServer(app);
-const io = new Server(server, { cors: { origin: "*" } });
+const io = new Server(server, { cors: { origin: "*" }, maxHttpBufferSize: 10 * 1024 * 1024 });
+
+// room -> { socketId: username }
+const roomUsers = {};
+
+function broadcastUsers(room) {
+  const users = [...new Set(Object.values(roomUsers[room] || {}))];
+  io.to(room).emit("roomUsers", users);
+}
 
 io.on('connection', (socket) => {
   console.log('User connected:', socket.id);
-  socket.on('join', (room) => {
+  socket.on('join', (room, username) => {
     socket.join(room);
-    console.log(socket.id + ' joined ' + room);
+    if (!roomUsers[room]) roomUsers[room] = {};
+    if (username) roomUsers[room][socket.id] = username;
+    console.log((username || socket.id) + ' joined ' + room);
+    broadcastUsers(room);
   });
   socket.on('sendMessage', (data) => {
     socket.to(data.room).emit('receiveMessage', data);
@@ -33,11 +44,24 @@ io.on('connection', (socket) => {
   socket.on('typing', (data) => {
     socket.to(data.room).emit('userTyping', data);
   });
+  socket.on('seen', (data) => {
+    socket.to(data.room).emit('messageSeen', data);
+  });
   socket.on('leave', (room) => {
     socket.leave(room);
+    if (roomUsers[room]) {
+      delete roomUsers[room][socket.id];
+      broadcastUsers(room);
+    }
   });
   socket.on('disconnect', () => {
     console.log('User disconnected');
+    for (const room of Object.keys(roomUsers)) {
+      if (roomUsers[room][socket.id]) {
+        delete roomUsers[room][socket.id];
+        broadcastUsers(room);
+      }
+    }
   });
 });
 
